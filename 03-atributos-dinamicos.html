@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>03</title>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <style>
+      .disabled {
+        opacity: 0.6;
+      }
+    </style>
+    <!-- 
+      * Hay temas que ya se tocaron en los archivos anteriores, por eso no se vuelven a explicar
+     -->
+
+    <div x-data="data()" x-init="start()">
+      <h1 x-show="open" @click.outside="close()">Holaaa mundo, con Alpine!</h1>
+      <!-- 
+        Atributos dinamicos con x-bind o :
+
+        Utilizamos x-bind: seguido del atributo que queremos colocar
+        y luego podemos asignarle una propiedad o variable, en este ejemplo
+        open podre ser false o verdadero cuando clickeen el boton.
+
+        Podemos quitar x-bind si queremos y solo ponemos dos puntos delante del atributo.
+        Con esto podemos modificar cualquier atributo de los elementos html
+       -->
+      <button
+        x-bind:disabled="open"
+        :style="open ? 'color: red' : ''"
+        :class="open ? 'disabled' : ''"
+        @click="isOpen()"
+      >
+        Saludo
+      </button>
+    </div>
+
+    <!-- Script -->
+    <script>
+      function data() {
+        // Lo que va a retornar cuando se llame a la funcion data
+        return {
+          // Definir propiedad
+          open: null,
+
+          isOpen() {
+            this.open = !this.open;
+          },
+
+          close() {
+            this.open = false;
+          },
+
+          start() {
+            console.log("Me estan inicializando");
+            this.open = false;
+          },
+        };
+      }
+    </script>
+  </body>
+</html>

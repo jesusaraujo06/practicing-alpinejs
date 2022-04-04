@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>04</title>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <!-- 
+      ? Que tal si queremos sincronizar el valor de un input con una variable?
+     -->
+
+    <!-- 
+       Podemos crear un componente sin pasarle ninguna variable, objeto o funcion a x-data
+      -->
+    <div x-data="{ message: 'Escribe en este input' }">
+      <!-- 
+        Con x-model sincronizamos el valor de una variable
+       -->
+      <input type="text" x-model="message" />
+      <!-- 
+        Podemos acceder a otros elementos por medio de $refs
+        y luego modificarlos, por ejemplo aqui vamos a usar innetText
+        para cambiarle el texto interno al elemento con ref=msg
+      -->
+      <button @click="$refs.msg.innerText=message">Enviar</button>
+      <!-- 
+        Con x-text agregamos o modificamos el contenido de texto interno de un elemento
+       -->
+      <h2 x-text="message"></h2>
+
+      <!-- 
+        Identificar a un elemento con un referenciador, por medio de x-ref
+       -->
+      <h3 x-ref="msg"></h3>
+    </div>
+  </body>
+</html>

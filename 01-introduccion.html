@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <!-- 
+      Inicializamos alpine con x-data
+      Cuando le ponemos x-data a un elemento, alpine lo va a tratar como un componente
+      Dentro de x-data podemos asignar una variable, haciendo uso de llaves { }
+    -->
+    <div x-data="{ isOpen: false }">
+      <!-- 
+
+        Los eventos de alpine los podemos definir con x-on: o el arroba @
+        Los eventos sirven para hacer algo cuando se realiza alguna accion en un elemento como por ejemplo, click
+
+        Cuando colocamos ! antes de la variable, le estamos diciendo que 
+        me si el valor de la variable es true entonces que la coloque en false y si el valor es false que la coloque true,
+        es decir, lo contrario a su valor.
+      -->
+      <button @click="isOpen = ! isOpen">Menu</button>
+
+      <!-- 
+        Podemos ocultar un elemento con la directiva x-show
+        @click
+      -->
+      <nav x-show="isOpen" @click.outside="isOpen = false">
+        <ul>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+          <li>Item 4</li>
+        </ul>
+      </nav>
+    </div>
+
+    <div x-data></div>
+  </body>
+</html>

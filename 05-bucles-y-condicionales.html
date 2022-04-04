@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>04</title>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <!-- 
+      ? En esta seccion veremos como utilizar los bucles y condicionales
+     -->
+
+    <!-- 
+       Creamos un componente Alpine y le pasamos la funcion data()
+      -->
+    <div x-data="data()">
+      <!-- 
+        Para recorrer un array debemos crear un elemento template
+        y hacer uso de la directiva x-for, dentro del template colocamos
+        lo que queremos imprimir en bucle
+      -->
+      <h2>Recorriendo un array</h2>
+      <ul>
+        <template x-for="product in products">
+          <li>
+            <!-- Imprimimos con la directiva x-text -->
+            <span x-text="product"></span>
+          </li>
+        </template>
+      </ul>
+
+      <hr />
+
+      <h2>Recorriendo un array de objetos</h2>
+      <ul>
+        <template x-for="product in productsArrayObject">
+          <li>
+            <!-- 
+              Como es un un array de objetos debemos acceder
+              a la propiedad del producto 
+            -->
+            <span x-text="product.stock"></span>
+            -
+            <span x-text="product.name"></span>
+          </li>
+        </template>
+      </ul>
+
+      <hr />
+
+      <h2>
+        Recorriendo un objeto que viene del backend y validar si algun elemento
+        tiene el stock en 0
+      </h2>
+      <ul>
+        <!--
+              En el caso de un objeto, debemos indicarle a Alpine que se iterará un objeto
+              Con la ayuda de Object.values de Javascript nativo
+            -->
+        <template x-for="product in Object.values(productsJson)">
+          <li>
+            <span x-text="product.stock"></span>
+            -
+            <span x-text="product.name"></span>
+
+            <!-- 
+              Para hacer uso de la directiva x-if 
+              debemos colocarla en un elemento template
+
+              Dentro de x-if colocamos la condicion a evaluar, si se cumple se mostrará lo que esta dentro de x-if
+              Y es importante que lo que vayamos a mostrar este dentro un elemento, por ejemplo div o span
+             -->
+            <template x-if="product.stock == 0">
+              <span> (Sin stock)</span>
+            </template>
+
+            <template x-if="product.stock != 0">
+              <span> (Con stock)</span>
+            </template>
+          </li>
+        </template>
+      </ul>
+    </div>
+
+    <script>
+      const data = () => {
+        return {
+          //  Creamos un array
+          products: ["Pantalon", "Camisa", "Casaca", "Zapatilla"],
+          //  Ahora un array de objetos
+          productsArrayObject: [
+            { id: 1, name: "Pantalon", stock: 8 },
+            { id: 2, name: "Camisa", stock: 6 },
+            { id: 3, name: "Casete", stock: 3 },
+            { id: 4, name: "Zapatilla", stock: 5 },
+          ],
+          //  Ahora simulemos un objeto que viene del backend
+          productsJson: {
+            1: { id: 1, name: "Pantalon", stock: 8 },
+            2: { id: 2, name: "Camisa", stock: 6 },
+            3: { id: 3, name: "Casete", stock: 3 },
+            4: { id: 4, name: "Zapatilla", stock: 0 },
+          },
+        };
+      };
+    </script>
+  </body>
+</html>

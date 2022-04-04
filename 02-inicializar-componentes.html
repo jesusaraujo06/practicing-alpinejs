@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <!-- 
+      Recordemos: con x-data creamos un componente, el cual tendra funcionalidades de alpine.
+      Tampoco es necesario que x-data se declare en un div, se puede en cualquier elemento
+
+      En este caso, a la directiva x-data le estamos pasando la funcion data()
+      La cual, nos retorna un objeto con una propiedad llamada open.
+      Las funciones las podemos colocar con o sin parentesis, es opcional.
+
+      x-init es un directiva que nos permitira conectarnos a la fase de inicialización de cualquier
+      elemetno en Alpine, es decir si pasamos una funcion dentro de x-init esta funcion se ejecutará
+      mientras se esta inicializando el elemento, NO despues.
+
+     -->
+    <div x-data="data()" x-init="start()">
+      <!-- 
+        Utilizamos la propiedad open del objeto que nos retorna la funcion data 
+      -->
+      <h1 x-show="open" @click.outside="close()">Holaaa mundo, con Alpine!</h1>
+
+      <!-- Llamar a una funcion que esta dentro de la funcion data -->
+      <button @click="isOpen()">Saludo</button>
+    </div>
+
+    <!-- Script -->
+    <script>
+      function data() {
+        // Lo que va a retornar cuando se llame a la funcion data
+        return {
+          // Definir propiedad
+          open: null,
+          /*
+            Definir una funcion dentro del return
+            Lo que queremos hacer con esta funcion es modificar el valor de la propiedad open
+            Para ello tenemos que utilizar this, para decirle a alpine que nos referimos a la propiedad open dentro de la funcion data()
+          */
+          isOpen() {
+            this.open = !this.open;
+          },
+          /* 
+            Definimos otra funcion para cerrar el saludo cuando clicken fuera de el
+          */
+          close() {
+            this.open = false;
+          },
+          /* 
+            Esta funcion se ejecutará justo cuando se este inicializando el componente
+            Y le asignará el valor de false a la propiedad open
+           */
+          start() {
+            console.log("Me estan inicializando");
+            this.open = false;
+          },
+        };
+      }
+    </script>
+  </body>
+</html>
